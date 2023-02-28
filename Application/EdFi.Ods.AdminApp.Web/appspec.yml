@@ -1,0 +1,7 @@
+# https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file.html
+version: 0.0
+os: windows
+files:
+  - source: ./
+    destination: C:/inetpub/wwwroot/v52/MPS.AdminApp
+file_exists_behavior: OVERWRITE
