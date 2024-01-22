@@ -8,12 +8,12 @@
 Param(
     $config =
     @{
-        "engine" = "sql"
-        "databaseServer" = "(local)"
-        "databasePort" = ""
-        "databaseUser" = ""
+        "engine" = "postgresql"
+        "databaseServer" = "localhost"
+        "databasePort" = "5432"
+        "databaseUser" = "postgres"
         "databasePassword" = ""
-        "useIntegratedSecurity" = $true
+        "useIntegratedSecurity" = $false
         "adminDatabaseName" = "EdFi_Admin"
     }
 )
