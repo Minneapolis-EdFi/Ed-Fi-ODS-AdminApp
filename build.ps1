@@ -11,7 +11,7 @@
     .DESCRIPTION
         Provides automation of the following tasks:
 
-        * Clean: runs `dotnet clean`
+        * CleanD: runs `dotnet clean`
         * Build: runs `dotnet build` with several implicit steps
           (clean, restore, inject version information).
         * UnitTest: executes NUnit tests in projects named `*.UnitTests`, which
@@ -65,7 +65,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("Clean", "Build", "BuildAndPublish", "UnitTest", "IntegrationTest", "Package", "PackageDatabase", "Push", "BuildAndTest", "BuildAndDeployToAdminAppDockerContainer", "Run")]
+    [ValidateSet("CleanD", "Build", "BuildAndPublish", "UnitTest", "IntegrationTest", "Package", "PackageDatabase", "Push", "BuildAndTest", "BuildAndDeployToAdminAppDockerContainer", "Run")]
     $Command = "Build",
 
     # Assembly and package version number for AdminApp Web. The current package number is
@@ -133,7 +133,7 @@ $appCommonPackageVersion = "3.1.0"
 Import-Module -Name "$PSScriptRoot/eng/build-helpers.psm1" -Force
 Import-Module -Name "$PSScriptRoot/eng/package-manager.psm1" -Force
 Import-Module -Name "$PSScriptRoot/eng/database-manager.psm1" -Force
-function Clean {
+function CleanD {
     Invoke-Execute { dotnet clean $solutionRoot -c $Configuration --nologo -v minimal }
 }
 function InitializeNuGet {
@@ -320,7 +320,7 @@ function PushPackage {
 }
 
 function Invoke-Build {
-    Invoke-Step { Clean }
+    Invoke-Step { CleanD }
     Invoke-Step { Restore }
     Invoke-Step { Compile }
 }
@@ -353,7 +353,7 @@ function Invoke-Run {
 }
 
 function Invoke-Clean {
-    Invoke-Step { Clean }
+    Invoke-Step { CleanD }
 }
 
 function Invoke-UnitTestSuite {
@@ -440,7 +440,7 @@ Invoke-Main {
         Set-Alias nuget $nugetExePath -Scope Global -Verbose
     }
     switch ($Command) {
-        Clean { Invoke-Clean }
+        CleanD { Invoke-Clean }
         Build { Invoke-Build }
         BuildAndPublish {
             Invoke-SetAssemblyInfo
